@@ -30,30 +30,34 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         sudo yum -y install unzip
 
 		#gnu gcc
-		#sudo yum -y install gmp-devel mpfr-devel  libmpc-devel
-		#sudo curl -O ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz; tar zxf gcc-4.9.2.tar.gz
-		#cd gcc-4.9.2
-		#sudo ./contrib/download_prerequisites
-		#sudo mkdir build
-		#cd build
-		#sudo ../configure --enable-languages=c,c++ --disable-multilib
-		#long long time.....
-		#sudo make
-		#sudo make install
-		
+		if [ ! -e /usr/local/bin/g++ ] ; then
+			sudo yum -y install gmp-devel mpfr-devel  libmpc-devel
+			sudo curl -O ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz; tar zxf gcc-4.9.2.tar.gz
+			#cd gcc-4.9.2
+			#sudo ./contrib/download_prerequisites
+			#sudo mkdir build
+			#cd build
+			#sudo ../configure --enable-languages=c,c++ --disable-multilib
+			#long long long loooong time.....
+			#sudo make
+			#sudo make install
+		fi
+
 		#cmake 2.8
 		sudo yum -y install cmake
 		
 		#opencv-2.4.9
-		#sudo wget -O OpenCV-2.4.9.zip http://fossies.org/linux/misc/opencv-2.4.9.zip
-		#sudo unzip OpenCV-2.4.9
-		#cd opencv-2.4.9
-		#sudo mkdir build
-		#cd build
-		#sudo cmake ..
-		#sudo make -j2
-		#sudo make install
-				
+		if [ ! -e opencv-2.4.9 ] ; then
+			sudo wget -O OpenCV-2.4.9.zip http://fossies.org/linux/misc/opencv-2.4.9.zip
+			sudo unzip OpenCV-2.4.9
+			cd opencv-2.4.9
+			sudo mkdir build
+			cd build
+			sudo cmake ..
+			sudo make -j2
+			sudo make install
+		fi
+						
 		#path
 		#sudo sh -c "echo '/usr/local/lib' >> /etc/ld.so.conf"		
 		#sudo sh -c "echo '/usr/local/bin' >> /etc/ld.so.conf"			
@@ -63,14 +67,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		sudo yum install -y git
 		
 		#change dir
-		cd /vagrant/prgm/php/
+		cd /vagrant
 		
 		#git source
-		git clone https://github.com/sakiyamaOursys/object_detection_server.git
-		cd object_detection_server
-		sudo chmod 777 build_cppfile.sh
-		sudo ./build_cppfile.sh
-		sudo cp /usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml haarcascades/haarcascade_frontalface_default.xml 
-
+		if [ ! -e object_detection_server ] ; then
+			git clone https://github.com/sakiyamaOursys/object_detection_server.git
+			cd object_detection_server
+			sudo chmod 777 build_cppfile.sh
+			sudo ./build_cppfile.sh
+			sudo cp /usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml haarcascades/haarcascade_frontalface_default.xml 
+	fi
   EOT
 end
