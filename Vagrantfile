@@ -33,14 +33,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		if [ ! -e /usr/local/bin/g++ ] ; then
 			sudo yum -y install gmp-devel mpfr-devel  libmpc-devel
 			sudo curl -O ftp://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.gz; tar zxf gcc-4.9.2.tar.gz
-			#cd gcc-4.9.2
-			#sudo ./contrib/download_prerequisites
-			#sudo mkdir build
-			#cd build
-			#sudo ../configure --enable-languages=c,c++ --disable-multilib
-			#long long long loooong time.....
-			#sudo make
-			#sudo make install
+			cd gcc-4.9.2
+			sudo ./contrib/download_prerequisites
+			sudo mkdir build
+			cd build
+			sudo ../configure --enable-languages=c,c++ --disable-multilib
+			long long long loooong time.....
+			sudo make
+			sudo make install
+			sudo cp /usr/local/lib64/libstdc++.so.6.0.20 /usr/lib64
+			sudo ln -s /usr/lib64/libstdc++.so.6.0.20 /usr/lib64/libstdc++.so.6
 		fi
 
 		#cmake 2.8
@@ -59,9 +61,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		fi
 						
 		#path
-		#sudo sh -c "echo '/usr/local/lib' >> /etc/ld.so.conf"		
-		#sudo sh -c "echo '/usr/local/bin' >> /etc/ld.so.conf"			
-		#sudo ldconfig
+		sudo sh -c "echo '/usr/local/lib' >> /etc/ld.so.conf"		
+		sudo sh -c "echo '/usr/local/bin' >> /etc/ld.so.conf"			
+		sudo ldconfig
 		
 		#git
 		sudo yum install -y git
@@ -72,10 +74,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		#git source
 		if [ ! -e object_detection_server ] ; then
 			git clone https://github.com/sakiyamaOursys/object_detection_server.git
-			cd object_detection_server
+			cd object_detection_server/object_detection_main
 			sudo chmod 777 build_cppfile.sh
 			sudo ./build_cppfile.sh
-			sudo cp /usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml haarcascades/haarcascade_frontalface_default.xml 
+			sudo cp /usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml ../haarcascades/haarcascade_frontalface_default.xml 
 	fi
   EOT
 end
