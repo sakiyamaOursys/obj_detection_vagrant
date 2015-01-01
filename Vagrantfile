@@ -78,6 +78,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			sudo chmod 777 build_cppfile.sh
 			sudo ./build_cppfile.sh
 			sudo cp /usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml ../haarcascades/haarcascade_frontalface_default.xml 
-	fi
+		fi
   EOT
 end
