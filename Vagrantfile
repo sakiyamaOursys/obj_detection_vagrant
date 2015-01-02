@@ -72,10 +72,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # git source
   if [ ! -e object_detection_server ] ; then
     git clone https://github.com/sakiyamaOursys/object_detection_server.git
+   	chmod 677 object_detection_server/test_img
     cd object_detection_server/object_detection_main
     sudo chmod 777 build_cppfile.sh
     sudo ./build_cppfile.sh
-    sudo cp /usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml ../haarcascades/haarcascade_frontalface_default.xml 
+    sudo cp -r /usr/local/share/OpenCV/haarcascades ..  
   fi
   EOT
 end
