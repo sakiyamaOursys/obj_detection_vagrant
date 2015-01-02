@@ -61,7 +61,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 						
   # path
   sudo sh -c "echo '/usr/local/lib' >> /etc/ld.so.conf"		
-  sudo sh -c "echo '/usr/local/bin' >> /etc/ld.so.conf"			
   sudo ldconfig
 		
   # git
