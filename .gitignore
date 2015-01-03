@@ -1,2 +1,3 @@
-object_detection_server/
 .vagrant*
+object_detection_server/
+_*
